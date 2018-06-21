@@ -1,30 +1,10 @@
-function magnitudeToNumber(str){
-  const Magnitude = {
-    'M': 1e6,
-    'B': 1e9,
-    'T': 1e12
-  }
-
-  function findOne(haystack, arr) {
-    return arr.find(function (v) {
-        return haystack.indexOf(v) >= 0;
-    });
-  };
-
-  function textToInt(str){
-    str = str.replace(/[^0-9]/g, '');
-    return parseInt(str, 10);
-  }
-
-  try{
-    const key = findOne(str.toUpperCase().split(''), Object.keys(Magnitude))
-    if(key){
-      return parseInt(parseFloat(str) * Magnitude[key])
-    }
-    return textToInt(str);
-  }catch(e){
-    return textToInt(str);
-  }
+function magnitudeToNumber(str) {
+  const Magnitude = { 'K': 1e3, 'M': 1e6, 'B': 1e9, 'T': 1e12 };
+  if (str.search(/[a-z]/ig) !== -1) {
+    string = str.replace(/[^a-z]/ig, '').toString().toUpperCase()
+    return parseInt(parseFloat(str) * Magnitude[string]);
+  } else
+    return parseInt(parseFloat(str))
 }
 
 module.exports = magnitudeToNumber;
